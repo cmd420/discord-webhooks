@@ -3,8 +3,8 @@
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/ipch
-.include
-.lib
-.test
-.src/main.cpp
-.platformio.ini
+include
+lib
+test
+src/main.cpp
+platformio.ini
