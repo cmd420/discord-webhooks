@@ -3,11 +3,15 @@ A simple to use Discord webhooks wrapper made using Arduino C
 
 ## Use cases
 - An easy notification system for IoT projects:
+
 <br>
+
 ![notification](./images/wh_notifier.png "Simple Notifier")
 
 - An easy way of sharing data with a community:
+
 <br>
+
 ![data](./images/wh_share_data.png "Simple Data")
 
 <hr/>
