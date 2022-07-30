@@ -1,6 +1,13 @@
 # Discord Webhooks
 A simple to use Discord webhooks wrapper made using Arduino C
 
+## Library progress
+
+- [x] Basic implementation
+- [ ] Simple docs
+- [ ] Send multiple embeds
+- [ ] General optimization
+
 ## Use cases
 - An easy notification system for IoT projects:
 
@@ -52,21 +59,21 @@ A simple to use Discord webhooks wrapper made using Arduino C
 ## Examples
 - ### Basic example:
     Include the needed libraries
-    ```arduino
+    ```cpp
     #include <ESP8266WiFi.h>
     #include <ESP8266WiFiMulti.h>
     #include "DiscordWebhook.h"
     ```
 
     Set your credentails
-    ```arduino
+    ```cpp
     #define SSID "<your ssid>"
     #define PASS "<your password>"
     #define DISCORD_WEBHOOK_URL "<your discord webhook url>"
     ```
 
     Define your variables and connect to WiFi
-    ```arduino
+    ```cpp
     ESP8266WiFiMulti wifi_multi;
     DiscordWebhook discord_webhook;
 
@@ -83,7 +90,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
     ```
 
     Run setup
-    ```arduino
+    ```cpp
     void setup()
     {
         Serial.begin(115200);
@@ -94,7 +101,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
     ```
 
     Start sending webhooks
-    ```arduino
+    ```cpp
         bool success = discord_webhook.send("Hello World!");
 
         Serial.printf("Sending webhook %s\n", success ? "succeeded!" : "failed.");
@@ -102,7 +109,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
     ```
 
     Full code:
-    ```arduino
+    ```cpp
     #include <ESP8266WiFi.h>
     #include <ESP8266WiFiMulti.h>
     #include "DiscordWebhook.h"
@@ -142,7 +149,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
     ```
 
 - ### Using Embeds
-    ```arduino
+    ```cpp
     void setup()
     {
         Serial.begin(115200);
@@ -172,7 +179,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         bool success = discord_webhook.send(embed);
     ```
     #### or send an embed with a message
-    ```arduino
+    ```cpp
         bool success = discord_webhook.send("Hey @everyone, check out the forecast!", embed);
 
         Serial.printf("Sending webhook %s\n", success ? "succeeded!" : "failed.");
@@ -183,4 +190,77 @@ A simple to use Discord webhooks wrapper made using Arduino C
 
 ## Docs
 
-    work in progress
+- ### DiscordWebhook
+    #### Methods:
+    - ```cpp
+        void begin(const String &url)
+        ``` 
+        Stores your webhook url for later use.
+
+        params:
+
+        - `url`: discord webhook URL
+
+        returns:
+
+        - nothing   
+    
+    <br/>
+
+    - ```cpp
+        bool send(const String &text)
+        ```
+        Sends a POST request to the webhook url.
+
+        params:
+
+        - `text`: discord message content
+
+        returns:
+
+        - `true` if response status code == 204 else `false`
+
+    <br/>
+
+    - ```cpp
+        bool send(const String &text, const bool &tts)
+        ```
+        params:
+
+        - `text`: discord message content
+        - `tts`: `true` or `false` if the message is text to speech  
+
+        returns:
+
+        - `true` if response status code == 204 else `false`
+
+    <br/>
+
+    - ```cpp
+        bool send(const DiscordEmbed &embed)
+        ```
+        Send discord embed.
+
+        params:
+
+        - `embed`: a `DiscordEmbed` instance as the message embed
+
+        returns:
+
+        - `true` if response status code == 204 else `false`
+
+    <br/>
+
+    - ```cpp
+        bool send(const String &text, const DiscordEmbed &embed)
+        ```
+        Send an embed with text above it as the message content.
+        
+        params:
+
+        - `text`: discord message content
+        - `embed`: a `DiscordEmbed` instance as the message embed
+
+        returns:
+
+        - `true` if response status code == 204 else `false`
