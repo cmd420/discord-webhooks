@@ -7,6 +7,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
 - [ ] Simple docs
 - [ ] Send multiple embeds
 - [ ] General optimization
+- [ ] Add more detailed examples
 
 ## Use cases
 - An easy notification system for IoT projects:
@@ -191,7 +192,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
 ## Docs
 - ### DiscordEmbed
     ```cpp
-    //example
+    // example
     DiscordEmbed embed;
     ```
 
@@ -262,7 +263,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         DiscordEmbed *setDescription(const String &description)
         ```
         ```cpp
-        //example
+        // example
         const String embed_desc = "Alarm didn't get triggered in the past 3 hours";
         embed.setDescription(embed_desc)'
         ```
@@ -283,7 +284,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         DiscordEmbed *setColor(const int &color)
         ```
         ```cpp
-        //example
+        // example
         const int embed_color = 0xFFFF00;
         embed.setColor(embed_color);
         ```
@@ -304,7 +305,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         DiscordEmbed *setImage(const String &image_url)
         ```
         ```cpp
-        //example
+        // example
         const String embed_image = "https://picsum.photos/300/200";
         embed.setImage(embed_image);
         ```
@@ -325,7 +326,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         DiscordEmbed *setImage(const EmbedImage &embed_image)
         ```
         ```cpp
-        //example
+        // example
         EmbedImage embed_image;
         embed_image.url = "https://picsum.photos/300/200";
         embed_image.height = 100;
@@ -350,7 +351,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         DiscordEmbed *setAuthor(const EmbedAuthor & author)
         ```
         ```cpp
-        //example
+        // example
         EmbedAuthor author;
         author.name = "slacker";
         author.icon_url = "https://cdn.discordapp.com/avatars/738274800211984426/57b3da0b4df7cfbb616ef63941dd984d.webp";
@@ -374,7 +375,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         DiscordEmbed *setFooter(const EmbedFooter &footer)
         ```
         ```cpp
-        //example
+        // example
         EmbedFooter footer;
         footer.text = "footer text";
 
@@ -397,7 +398,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         DiscordEmbed *setFooter(const String &text)
         ```
         ```cpp
-        //example
+        // example
         embed.setFooter("my footer text");
         ```
         Sets the embed footer text.
@@ -417,7 +418,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         DiscordEmbed *addField(const EmbedField &field)
         ```
         ```cpp
-        //example
+        // example
         EmbedField field;
         field.name = "Status";
         field.value = "working 🟢";
@@ -442,7 +443,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         DiscordEmbed *addField(const String &name, const String &value, cont bool &is_inline)
         ```
         ```cpp
-        //example
+        // example
         const String field_name = "Battery";
         const String field_value = "low 🔴";
         const bool field_is_inline = true;
@@ -468,6 +469,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         String toString(bool pretty)
         ```
         ```cpp
+        // example
         embed.setTitle("My Embed Title")
             ->setDescription("My embed description")
             ->setFooter("my footer text")
@@ -490,7 +492,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
             "description": "My embed description",
             "footer": {
                 "text": "my footer text"
-        },
+            },
             "color": 3355443
         }
         ```
@@ -502,6 +504,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         static int rgbToHex(const int &red, const int &green, const int &blue)
         ```
         ```cpp
+        // example
         embed.setColor(DiscordEmbed::rgbToHex(151, 250, 148));
         ```
         Converts RGB value to HEX.
@@ -533,7 +536,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         void begin(const String &url)
         ``` 
         ```cpp
-        //example
+        // example
         const String WEBHOOK_URL = "https://discord.com/api/webhooks/<webhook id>/<webhook token>";
         discord_webhook.begin(WEBHOOK_URL);
         ```
@@ -554,7 +557,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         bool send(const String &text)
         ```
         ```cpp
-        //example
+        // example
         discord_webhook.send("Hello world!");
         ```
         Sends a POST request to the webhook url.
@@ -589,7 +592,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         bool send(const DiscordEmbed &embed)
         ```
         ```cpp
-        //example
+        // example
         DiscordEmbed embed;
         embed.setTitle("Sensor Readings")
             ->addField("10:00", "low - 23℃, high - 25℃", false)
@@ -616,7 +619,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         bool send(const String &text, const DiscordEmbed &embed)
         ```
         ```cpp
-        //example
+        // example
         String content = "Reading from sensor every `1 hour`";
         DiscordEmbed embed;
         embed.setTitle("Sensor Readings")
