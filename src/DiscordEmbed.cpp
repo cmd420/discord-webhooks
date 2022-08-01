@@ -72,6 +72,16 @@ DiscordEmbed *DiscordEmbed::setFooter(const EmbedFooter &footer)
     return this;
 }
 
+DiscordEmbed *DiscordEmbed::setFooter(const String &text)
+{
+    if(this->m_json["footer"].containsKey("icon_url"))
+        this->m_json["footer"].remove("icon_url");
+        
+    this->m_json["footer"]["text"] = text;
+
+    return this;
+}
+
 DiscordEmbed *DiscordEmbed::addField(const EmbedField &field)
 {
     if (!this->m_json["fields"])

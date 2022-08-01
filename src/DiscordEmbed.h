@@ -46,11 +46,10 @@ public:
     DiscordEmbed *setImage(const EmbedImage &embed_image);
     DiscordEmbed *setAuthor(const EmbedAuthor &author);
     DiscordEmbed *setFooter(const EmbedFooter &footer);
+    DiscordEmbed *setFooter(const String &text);
     DiscordEmbed *addField(const EmbedField &field);
     DiscordEmbed *addField(const String &name, const String &value, const bool &is_inline);
     String toString(bool pretty);
     static const size_t embed_size = 4096;
     static int rgbToHex(const int &red, const int &green, const int &blue);
 };
-
-typedef DiscordEmbed Embed;
