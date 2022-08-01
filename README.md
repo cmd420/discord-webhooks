@@ -4,10 +4,10 @@ A simple to use Discord webhooks wrapper made using Arduino C
 ## Library progress
 
 - [x] Basic implementation
-- [ ] Simple docs
+- [x] Simple docs
+- [ ] Add more detailed examples
 - [ ] Send multiple embeds
 - [ ] General optimization
-- [ ] Add more detailed examples
 
 ## Use cases
 - An easy notification system for IoT projects:
@@ -190,7 +190,121 @@ A simple to use Discord webhooks wrapper made using Arduino C
 <hr/>
 
 ## Docs
+- ### EmbedAuthor
+    Embed author structure can be found [here](https://discord.com/developers/docs/resources/channel#embed-object-embed-author-structure)
+    ```cpp
+    // example 
+    EmbedAuthor author;
+    ```
+    #### Variables:
+    -
+        ```cpp
+        String name
+        ```
+        Author name.
+
+    -
+        ```cpp
+        String url
+        ```
+        Author url.
+
+    - 
+        ```cpp
+        String icon_url
+        ```
+        Author icon url (often the author's pfp).
+
+    <br>
+
+<hr>
+
+- ### EmbedFooter
+    Embed footer structure can be found [here](https://discord.com/developers/docs/resources/channel#embed-object-embed-author-structure)
+    ```cpp
+    // example
+    EmbedFooter footer;
+    ```
+
+    #### Variables:
+    -
+        ```cpp
+        String text
+        ```
+        Embed footer text.
+
+    -
+        ```cpp
+        String icon_url
+        ```
+        Embed footer icon url.
+
+    <br>
+
+<hr>
+
+- ### EmbedField
+    Embed field structure can be found [here](https://discord.com/developers/docs/resources/channel#embed-object-embed-author-structure)
+    ```cpp
+    // example
+    EmbedField field;
+    ```
+
+    #### Variables:
+    -
+        ```cpp
+        String name
+        ```
+        Embed field name (more like title)
+
+    -
+        ```cpp
+        String value
+        ```
+        Embed field value (more like content)
+
+    <br>
+
+<hr>
+
+- ### EmbedImage
+    Embed image structure can be found [here](https://discord.com/developers/docs/resources/channel#embed-object-embed-author-structure)
+    ```cpp
+    // example
+    EmbedImage image;
+    ```
+
+    #### Variables:
+    -
+        ```cpp
+        String url
+        ```
+        Embed image source url
+
+    -
+        ```cpp
+        String proxy_url
+        ```
+        Embed image proxied url
+
+    -
+        ```cpp
+        unsigned int height
+        ```
+        Embed image height
+
+    -
+        ```cpp
+        unsigned int width
+        ```
+        Embed image width
+    
+    <br>
+
+<hr>
+
 - ### DiscordEmbed
+    Embed structure can be found [here](https://discord.com/developers/docs/resources/channel#embed-object-embed-structure)
     ```cpp
     // example
     DiscordEmbed embed;
@@ -530,6 +644,69 @@ A simple to use Discord webhooks wrapper made using Arduino C
     DiscordWebhook discord_webhook;
     ```
 
+    #### Variables:
+    This is more like the webhook structure, can be found [here](https://discord.com/developers/docs/resources/webhook#webhook-object-webhook-structure)
+    
+    <br>
+
+    - 
+        ```cpp
+        int type
+        ```
+        Webhook type, either 1, 2 or 3. Check out the types [here](https://discord.com/developers/docs/resources/webhook#webhook-object-webhook-types)
+
+    <br>
+    
+    -
+        ```cpp
+        String name
+        ```
+        Webhook name (more like a username tbh)
+
+    <br>
+    
+    -
+        ```cpp
+        String avatar
+        ```
+        Webhook avatar hash
+
+    <br>
+    
+    -
+        ```cpp
+        String channel_id
+        ```
+        Webhook channel id (where it sends messages)
+
+    <br>
+    
+    -
+        ```cpp
+        String guild_id
+        ```
+        Webhook guild id (where the webhook is present in)
+
+    <br>
+    
+    -
+        ```cpp
+        String application_id
+        ```
+        Webhook application id
+
+    <br>
+    
+    -
+        ```cpp
+        String token
+        ```
+        Webhook token at the end of the url
+
+    <br>
+    
+
+
     #### Methods:
     - 
         ```cpp
@@ -550,8 +727,30 @@ A simple to use Discord webhooks wrapper made using Arduino C
 
         - nothing   
     
-    <br/>
+    <br>
 
+    -
+        ```cpp
+        bool DiscordWebhook::get()
+        ```
+        ```cpp
+        // example
+        bool success = discord_webhook.get();
+        if (!success)
+            return;
+
+        Serial.println(discord_webhook.name);
+        Serial.println(discord_webhook.avatar);
+        Serial.println(discord_webhook.guild_id);
+        ```
+        Gets the current webhook info. Gets called inside `begin`.
+
+        returns:
+
+        - `true` if fetching info is successful else `false`
+
+    <br>
+    
     - 
         ```cpp
         bool send(const String &text)
@@ -576,6 +775,7 @@ A simple to use Discord webhooks wrapper made using Arduino C
         ```cpp
         bool send(const String &text, const bool &tts)
         ```
+
         params:
 
         - `text`: discord message content
@@ -640,3 +840,24 @@ A simple to use Discord webhooks wrapper made using Arduino C
         returns:
 
         - `true` if response status code == 204 else `false`
+
+    <br>
+
+    -
+        ```cpp
+        bool &isValid()
+        ```
+        ```cpp
+        // example
+        if (!discord_webhook.isValid())
+            return;
+
+        Serial.println(discord_webhook.name);
+        Serial.println(discord_webhook.avatar);
+        Serial.println(discord_webhook.guild_id);
+        ```
+        Returns if the webhook data is valid/present.
+
+        returns:
+
+        - `true` if the webhook data is valid/present else `false`
