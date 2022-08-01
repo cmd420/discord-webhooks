@@ -3,6 +3,43 @@
 void DiscordWebhook::begin(const String &url)
 {
     this->m_webhook_url = url;
+    this->m_is_valid = this->get();
+}
+
+bool DiscordWebhook::get()
+{
+    if (!this->checkWiFi() || this->m_is_valid)
+        return false;
+
+    WiFiClientSecure client;
+    client.setInsecure();
+
+    HTTPClient https;
+    if (https.begin(client, this->m_webhook_url))
+    {
+        const int status_code = https.GET();
+        if (status_code != 200)
+            return false;
+
+        const String &response = https.getString();
+        DynamicJsonDocument doc(1024);
+        if (deserializeJson(doc, response) != DeserializationError::Ok)
+            return false;
+
+        this->type = doc["type"];
+        this->id = doc["id"].as<String>();
+        this->name = doc["name"].as<String>();
+        this->avatar = doc["avatar"].as<String>();
+        this->channel_id = doc["channel_id"].as<String>();
+        this->guild_id = doc["guild_id"].as<String>();
+        this->application_id = doc["application_id"].as<String>();
+        this->token = doc["token"].as<String>();
+
+        this->m_is_valid = true;
+        return true;
+    }
+
+    return false;
 }
 
 bool DiscordWebhook::send(const String &text)
@@ -19,7 +56,7 @@ bool DiscordWebhook::send(const String &text)
     return this->post(json);
 }
 
-bool DiscordWebhook::send(const String &text, const bool& tts)
+bool DiscordWebhook::send(const String &text, const bool &tts)
 {
     if (!this->checkWiFi())
         return false;
@@ -59,12 +96,18 @@ bool DiscordWebhook::send(const String &text, const DiscordEmbed &embed)
     return this->post(json);
 }
 
+bool &DiscordWebhook::isValid()
+{
+    return this->m_is_valid;
+}
+
 bool DiscordWebhook::checkWiFi()
 {
     return WiFi.status() == WL_CONNECTED;
 }
 
-bool DiscordWebhook::post(DynamicJsonDocument &json) {
+bool DiscordWebhook::post(DynamicJsonDocument &json)
+{
     WiFiClientSecure client;
     client.setInsecure();
 
