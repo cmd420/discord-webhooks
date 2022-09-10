@@ -29,6 +29,7 @@ public:
     bool send(const String &text);
     bool send(const String &text, const bool& tts);
     bool send(const DiscordEmbed &embed);
+    bool send(const DiscordEmbed *embeds, const size_t &size);
     bool send(const String &text, const DiscordEmbed &embed);
 
     bool &isValid();

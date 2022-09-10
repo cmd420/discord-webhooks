@@ -1,42 +1,42 @@
 #include "DiscordEmbed.h"
 
-DiscordEmbed *DiscordEmbed::setTitle(const String &title)
+DiscordEmbed DiscordEmbed::setTitle(const String &title)
 {
     this->m_json["title"] = title;
 
-    return this;
+    return *this;
 }
 
-DiscordEmbed *DiscordEmbed::setTitle(const String &title, const String &url)
+DiscordEmbed DiscordEmbed::setTitle(const String &title, const String &url)
 {
     this->m_json["title"] = title;
     this->m_json["url"] = url;
 
-    return this;
+    return *this;
 }
 
-DiscordEmbed *DiscordEmbed::setDescription(const String &description)
+DiscordEmbed DiscordEmbed::setDescription(const String &description)
 {
     this->m_json["description"] = description;
 
-    return this;
+    return *this;
 }
 
-DiscordEmbed *DiscordEmbed::setColor(const int &color)
+DiscordEmbed DiscordEmbed::setColor(const int &color)
 {
     this->m_json["color"] = color;
 
-    return this;
+    return *this;
 }
 
-DiscordEmbed *DiscordEmbed::setImage(const String &image_url)
+DiscordEmbed DiscordEmbed::setImage(const String &image_url)
 {
     this->m_json["image"]["url"] = image_url;
 
-    return this;
+    return *this;
 }
 
-DiscordEmbed *DiscordEmbed::setImage(const EmbedImage &embed_image)
+DiscordEmbed DiscordEmbed::setImage(const EmbedImage &embed_image)
 {
     if (!embed_image.url.isEmpty())
         this->m_json["image"]["url"] = embed_image.url;
@@ -47,10 +47,10 @@ DiscordEmbed *DiscordEmbed::setImage(const EmbedImage &embed_image)
     if (embed_image.width)
         this->m_json["image"]["width"] = embed_image.width;
 
-    return this;
+    return *this;
 }
 
-DiscordEmbed *DiscordEmbed::setAuthor(const EmbedAuthor &author)
+DiscordEmbed DiscordEmbed::setAuthor(const EmbedAuthor &author)
 {
     if (!author.name.isEmpty())
         this->m_json["author"]["name"] = author.name;
@@ -59,30 +59,30 @@ DiscordEmbed *DiscordEmbed::setAuthor(const EmbedAuthor &author)
     if (!author.icon_url.isEmpty())
         this->m_json["author"]["icon_url"] = author.icon_url;
 
-    return this;
+    return *this;
 }
 
-DiscordEmbed *DiscordEmbed::setFooter(const EmbedFooter &footer)
+DiscordEmbed DiscordEmbed::setFooter(const EmbedFooter &footer)
 {
     if (!footer.text.isEmpty())
         this->m_json["footer"]["text"] = footer.text;
     if (!footer.icon_url.isEmpty())
         this->m_json["footer"]["icon_url"] = footer.icon_url;
 
-    return this;
+    return *this;
 }
 
-DiscordEmbed *DiscordEmbed::setFooter(const String &text)
+DiscordEmbed DiscordEmbed::setFooter(const String &text)
 {
     if(this->m_json["footer"].containsKey("icon_url"))
         this->m_json["footer"].remove("icon_url");
         
     this->m_json["footer"]["text"] = text;
 
-    return this;
+    return *this;
 }
 
-DiscordEmbed *DiscordEmbed::addField(const EmbedField &field)
+DiscordEmbed DiscordEmbed::addField(const EmbedField &field)
 {
     if (!this->m_json["fields"])
     {
@@ -96,10 +96,10 @@ DiscordEmbed *DiscordEmbed::addField(const EmbedField &field)
     new_field["value"] = field.value;
     new_field["inline"] = field.is_inline;
 
-    return this;
+    return *this;
 }
 
-DiscordEmbed *DiscordEmbed::addField(const String &name, const String &value, const bool &is_inline)
+DiscordEmbed DiscordEmbed::addField(const String &name, const String &value, const bool &is_inline)
 {
     EmbedField field;
     field.name = name;

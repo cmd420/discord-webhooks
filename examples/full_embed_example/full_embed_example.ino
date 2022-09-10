@@ -50,13 +50,13 @@ void setup()
     footer.icon_url = "https://cdn.iconscout.com/icon/free/png-256/snowfall-203-1123570.png";
 
     embed.setTitle("Weather Forecast")
-        ->setColor(DiscordEmbed::rgbToHex(225, 232, 237))
-        ->addField("Now", "Clear 🌙", false)
-        ->addField("6:00", "Sunny ☀", true)
-        ->addField("7:00", "Cloudy ☁", true)
-        ->addField(field1)
-        ->setImage(image)
-        ->setFooter(footer);
+        .setColor(DiscordEmbed::rgbToHex(225, 232, 237))
+        .addField("Now", "Clear 🌙", false)
+        .addField("6:00", "Sunny ☀", true)
+        .addField("7:00", "Cloudy ☁", true)
+        .addField(field1)
+        .setImage(image)
+        .setFooter(footer);
 
     bool success = discord_webhook.send(embed);
 

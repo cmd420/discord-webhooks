@@ -83,6 +83,18 @@ bool DiscordWebhook::send(const DiscordEmbed &embed)
     return this->post(json);
 }
 
+bool DiscordWebhook::send(const DiscordEmbed *embeds, const size_t &size) {
+    if (!this->checkWiFi())
+        return false;
+
+    DynamicJsonDocument json(4096);
+    JsonArray embeds_arr = json.createNestedArray("embeds");
+    for(size_t i = 0; i < size; ++i)
+        embeds_arr.add(embeds[i].m_json);
+
+    return this->post(json);
+}
+
 bool DiscordWebhook::send(const String &text, const DiscordEmbed &embed)
 {
     if (!this->checkWiFi())
@@ -119,7 +131,8 @@ bool DiscordWebhook::post(DynamicJsonDocument &json)
         String payload;
         serializeJson(json, payload);
         int status_code = https.POST(payload);
-
+        
+        https.end();
         return status_code == 204;
     }
 

@@ -29,10 +29,10 @@ void setup()
 
     DiscordEmbed embed;
     embed.setTitle("Weather Forecast")
-        ->setColor(DiscordEmbed::rgbToHex(225, 232, 237))
-        ->addField("Now", "Clear 🌙", false)
-        ->addField("6:00", "Sunny ☀", true)
-        ->addField("7:00", "Cloudy ☁", true);
+        .setColor(DiscordEmbed::rgbToHex(225, 232, 237))
+        .addField("Now", "Clear 🌙", false)
+        .addField("6:00", "Sunny ☀", true)
+        .addField("7:00", "Cloudy ☁", true);
 
     EmbedField field1;
     field1.name = "8:00";
